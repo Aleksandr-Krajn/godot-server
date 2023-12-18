@@ -1,11 +1,14 @@
-const WebSocket = require('ws')
+const WebSocket = require('ws');
+const express = require('express');
+const app = express();
 
-const port = 9001
-const wss = new WebSocket.Server({ port: port })
+const port = 9001;
+const portExpress = 9002;
+const wss = new WebSocket.Server({ port: port });
 
-let gameState = []
+let gameState = [];
 
-console.log(`running on ws://127.0.0.1:${port}`)
+console.log(`running on ws://127.0.0.1:${port}`);
 
 wss.on('connection', ws => {
 
@@ -30,4 +33,12 @@ wss.on('connection', ws => {
   	console.log(`player ${reason} disconnected`)
   })
  
+})
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(portExpress, () => {
+  console.log(`Example app listening on port ${portExpress}`)
 })
